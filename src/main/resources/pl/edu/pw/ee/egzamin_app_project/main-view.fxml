@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="707.0" prefWidth="971.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.pw.ee.egzamin_app_project.MainController">
+  <tabs>
+    <Tab text="Questions">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <left>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
+                     <children>
+                        <VBox maxHeight="-Infinity" prefHeight="250.0" prefWidth="236.0">
+                           <children>
+                              <Label text="Treść pytania" />
+                              <TextArea fx:id="questionTextArea" maxHeight="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </TextArea>
+                           </children>
+                        </VBox>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                           <children>
+                              <ChoiceBox fx:id="questionAmountChoiceBox" prefHeight="25.0" prefWidth="70.0" />
+                              <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmQuestion" text="Potwierdź" />
+                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <ChoiceBox fx:id="categoryChoiceBox" prefHeight="25.0" prefWidth="281.0" />
+                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="correctAnswerLabel" text="Poprawna odpowiedź" />
+                              <TextField fx:id="correctAnswerTextField" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="incorrectAnswerLabel1" text="Błędna odpowiedź 1" />
+                              <TextField fx:id="incorrectAnswerTextField1" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="incorrectAnswerLabel2" text="Błędna odpowiedź 2" />
+                              <TextField fx:id="incorrectAnswerTextField2" />
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label fx:id="incorrectAnswerLabel3" text="Błędna odpowiedź 3" />
+                              <TextField fx:id="incorrectAnswerTextField3" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </left>
+               <bottom>
+                  <AnchorPane prefHeight="200.0" prefWidth="844.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label fx:id="missingElementsLabel" layoutX="7.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="33.0" prefWidth="786.0" textFill="#ff1515" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                     </children>
+                  </AnchorPane>
+               </bottom>
+               <center>
+                  <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
+                     <children>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField promptText="Wyszukaj pytanie..." />
+                              <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                        <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="458.0" prefWidth="200.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </center>
+               <right>
+                  <VBox prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Nazwa kategorii" />
+                              <TextField fx:id="categoryTextField" onKeyTyped="#updateCategoryStatusLabelBuffer" />
+                              <Label fx:id="categoryStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0">
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#addNewCategory" text="Dodaj" />
+                                    <Button fx:id="deleteCategoryButton" mnemonicParsing="false" onAction="#removeCategory" text="Usuń" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </right>
+            </BorderPane>
+         </content>
+    </Tab>
+    <Tab text="Tests" />
+  </tabs>
+</TabPane>

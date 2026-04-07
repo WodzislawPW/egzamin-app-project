@@ -58,6 +58,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -81,7 +86,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                pl.edu.pw.ee.egzamin_app_project/pl.edu.pw.ee.egzamin_app_project.HelloApplication
+                                pl.edu.pw.ee.egzamin_app_project/pl.edu.pw.ee.egzamin_app_project.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
