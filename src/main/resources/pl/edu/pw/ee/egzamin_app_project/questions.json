@@ -1,30 +1,6 @@
 [ {
-  "questionText" : "1",
-  "category" : "Misc",
-  "answers" : null
-}, {
-  "questionText" : "test",
-  "category" : "Misc",
-  "answers" : null
-}, {
-  "questionText" : "1",
-  "category" : "Misc",
-  "answers" : [ {
-    "text" : "2",
-    "correct" : true
-  }, {
-    "text" : "3",
-    "correct" : false
-  }, {
-    "text" : "4",
-    "correct" : false
-  }, {
-    "text" : "5",
-    "correct" : false
-  } ]
-}, {
-  "questionText" : "test",
-  "category" : "Misc",
+  "questionText" : "Dlaczego java boli??",
+  "category" : "Java",
   "answers" : [ {
     "text" : "1",
     "correct" : true
@@ -38,4 +14,4 @@
     "text" : "4",
     "correct" : false
   } ]
-}]
+} ]

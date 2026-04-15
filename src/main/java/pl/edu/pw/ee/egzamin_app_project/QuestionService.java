@@ -5,6 +5,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class QuestionService
@@ -13,6 +15,7 @@ public class QuestionService
     private static final ObjectMapper mapper = new ObjectMapper();
     File file;
     List<Question> questions;
+    String keyword = "";
 
     public QuestionService()
     {
@@ -37,8 +40,14 @@ public class QuestionService
         }
     }
 
+    public void setKeyword(String keyword)
+    {
+        this.keyword = keyword;
+    }
+
     public List<Question> getQuestions()
     {
+        questions.sort(Comparator.comparing( (Question q) -> !q.toString().toLowerCase().contains(keyword.toLowerCase()) ));
         return questions;
     }
 
@@ -47,6 +56,20 @@ public class QuestionService
         try
         {
             questions.add(newQuestion);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, questions);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteCategory(Question removedQuestion)
+    {
+        try
+        {
+            questions.remove(removedQuestion);
 
             mapper.writerWithDefaultPrettyPrinter().writeValue(file, questions);
         }

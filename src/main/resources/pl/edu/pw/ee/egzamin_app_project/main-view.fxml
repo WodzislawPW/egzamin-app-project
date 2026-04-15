@@ -78,7 +78,7 @@
                   </VBox>
                </left>
                <bottom>
-                  <AnchorPane prefHeight="200.0" prefWidth="844.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="159.0" prefWidth="971.0" BorderPane.alignment="CENTER">
                      <children>
                         <Label fx:id="missingElementsLabel" layoutX="7.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="33.0" prefWidth="786.0" textFill="#ff1515" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
                      </children>
@@ -89,8 +89,9 @@
                      <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField promptText="Wyszukaj pytanie..." />
+                              <TextField fx:id="searchTextField" onKeyTyped="#updateKeyword" promptText="Wyszukaj pytanie..." />
                               <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="200.0" />
+                              <Button fx:id="deleteQuestionButton" mnemonicParsing="false" onAction="#deleteQuestion" text="Usuń" />
                            </children>
                         </VBox>
                         <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="458.0" prefWidth="200.0" />

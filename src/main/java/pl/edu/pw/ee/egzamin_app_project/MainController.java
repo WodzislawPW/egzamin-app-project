@@ -28,10 +28,10 @@ public class MainController implements Initializable
     private TextArea questionTextArea, answersTextArea;
 
     @FXML
-    private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField;
+    private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField, searchTextField;
 
     @FXML
-    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton;
+    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton;
 
     @FXML
     private ChoiceBox<String> questionAmountChoiceBox, categoryChoiceBox;
@@ -50,6 +50,8 @@ public class MainController implements Initializable
     private List<String> categories;
     private boolean categoryExists = true;
     private boolean labelEmpty = true;
+
+    Question forDeletion;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
@@ -73,7 +75,23 @@ public class MainController implements Initializable
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
 
-        System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
+        deleteQuestionButton.setDisable(true);
+
+        //System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
+    }
+
+    public void deleteQuestion(ActionEvent event)
+    {
+        questionService.deleteCategory(forDeletion);
+        deleteQuestionButton.setDisable(true);
+        updateListView();
+    }
+
+    public void updateKeyword(KeyEvent event)
+    {
+        String text = searchTextField.getText();
+        questionService.setKeyword(text);
+        updateListView();
     }
 
     public void updateCategoryStatusLabelBuffer(KeyEvent event)
@@ -178,6 +196,9 @@ public class MainController implements Initializable
 
         questionListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldVal, newVal) -> {
+                    forDeletion = newVal;
+                    deleteQuestionButton.setDisable(false);
+
                     if (newVal != null && newVal.answers()!=null)
                     {
                         answersTextArea.setVisible(true);
