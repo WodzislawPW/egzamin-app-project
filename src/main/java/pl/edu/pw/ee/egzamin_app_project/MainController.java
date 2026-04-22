@@ -1,6 +1,5 @@
 package pl.edu.pw.ee.egzamin_app_project;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,8 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,22 +19,25 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable
 {
     @FXML
-    private Label correctAnswerLabel, incorrectAnswerLabel1, incorrectAnswerLabel2, incorrectAnswerLabel3, missingElementsLabel, categoryStatusLabel;
+    private Label correctAnswerLabel, incorrectAnswerLabel1, incorrectAnswerLabel2, incorrectAnswerLabel3, missingElementsLabel, categoryStatusLabel, testStatusLabel;
 
     @FXML
     private TextArea questionTextArea, answersTextArea;
 
     @FXML
-    private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField, searchTextField;
+    private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField, searchTextField, testNameTextField, testSearchTextField, questionSearchTextField;
 
     @FXML
-    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton;
+    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton, addTestButton, deleteTestButton;
 
     @FXML
     private ChoiceBox<String> questionAmountChoiceBox, categoryChoiceBox;
 
     @FXML
-    private ListView<Question> questionListView;
+    private ListView<Question> questionListView, testQuestionListView, searchedQuestionListView;
+
+    @FXML
+    private ListView<Test> testListView;
 
     private String[] incorrectAnswerAmount = {"Otwarte", "1", "2", "3"};
     private String questionType = incorrectAnswerAmount[3];
@@ -46,12 +46,16 @@ public class MainController implements Initializable
 
     QuestionService questionService;
     CategoryService categoryService;
+    TestService testService;
 
     private List<String> categories;
     private boolean categoryExists = true;
-    private boolean labelEmpty = true;
+    private boolean categoryLabelEmpty = true;
+    private boolean testExists = true;
+    private boolean testLabelEmpty = true;
 
-    Question forDeletion;
+    Question questionForDeletion;
+    Test testForDeletion;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
@@ -65,12 +69,18 @@ public class MainController implements Initializable
         inputCategories();
 
         questionService = new QuestionService();
-        setupListView();
+        setupQuestionListView();
 
         updateCategoryButtons();
 
         answersTextArea.setEditable(false);
         answersTextArea.setVisible(false);
+
+        testService = new TestService();
+
+        setupTestListView();
+
+        updateTestButtons();
 
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.playFromStart();
@@ -82,16 +92,16 @@ public class MainController implements Initializable
 
     public void deleteQuestion(ActionEvent event)
     {
-        questionService.deleteCategory(forDeletion);
+        questionService.deleteQuestion(questionForDeletion);
         deleteQuestionButton.setDisable(true);
-        updateListView();
+        updateQuestionListView();
     }
 
-    public void updateKeyword(KeyEvent event)
+    public void updateQuestionListViewKeyword(KeyEvent event)
     {
         String text = searchTextField.getText();
         questionService.setKeyword(text);
-        updateListView();
+        updateQuestionListView();
     }
 
     public void updateCategoryStatusLabelBuffer(KeyEvent event)
@@ -99,7 +109,7 @@ public class MainController implements Initializable
         updateCategoryStatusLabel();
     }
 
-    public void updateCategoryStatusLabel()
+    private void updateCategoryStatusLabel()
     {
         String text = categoryTextField.getText();
 
@@ -118,10 +128,10 @@ public class MainController implements Initializable
         {
             categoryStatusLabel.setText("");
             categoryExists = true;
-            labelEmpty = true;
+            categoryLabelEmpty = true;
         }
         else
-            labelEmpty = false;
+            categoryLabelEmpty = false;
 
         updateCategoryButtons();
     }
@@ -139,7 +149,7 @@ public class MainController implements Initializable
             deleteCategoryButton.setDisable(true);
         }
 
-        if(labelEmpty)
+        if(categoryLabelEmpty)
         {
             addCategoryButton.setDisable(true);
             deleteCategoryButton.setDisable(true);
@@ -173,7 +183,122 @@ public class MainController implements Initializable
         updateCategoryStatusLabel();
     }
 
-    private void setupListView()
+    public void updateTestListViewKeyword(KeyEvent event)
+    {
+        String text = testSearchTextField.getText();
+        testService.setKeyword(text);
+        updateTestListView();
+    }
+
+    public void updateTestStatusLabelBuffer(KeyEvent event)
+    {
+        updateTestStatusLabel();
+    }
+
+    private void updateTestStatusLabel()
+    {
+        String text = testNameTextField.getText();
+
+        if(testService.getTest(text)!=null)
+        {
+            testStatusLabel.setText("Taki test już istnieje");
+            testExists = true;
+        }
+        else
+        {
+            testStatusLabel.setText("Nowy test");
+            testExists = false;
+        }
+
+        if(text.isEmpty())
+        {
+            testStatusLabel.setText("");
+            testExists = true;
+            testLabelEmpty = true;
+        }
+        else
+            testLabelEmpty = false;
+
+        updateTestButtons();
+    }
+
+    private void updateTestButtons()
+    {
+        if(testExists)
+        {
+            addTestButton.setDisable(true);
+            deleteTestButton.setDisable(false);
+        }
+        else
+        {
+            addTestButton.setDisable(false);
+            deleteTestButton.setDisable(true);
+        }
+
+        if(testLabelEmpty)
+        {
+            addTestButton.setDisable(true);
+            deleteTestButton.setDisable(true);
+        }
+    }
+
+    public void addNewTest(ActionEvent event)
+    {
+        Test newTest = new Test(testNameTextField.getText());
+
+        testService.saveTests(newTest);
+
+        updateTestListView();
+        updateTestStatusLabel();
+    }
+
+    public void removeTest(ActionEvent event)
+    {
+        Test removedTest = testService.getTest(testNameTextField.getText());
+
+        testService.removeTest(removedTest);
+
+        updateTestListView();
+        updateTestStatusLabel();
+    }
+
+
+
+    private void setupTestListView()
+    {
+        testListView.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(Test t, boolean empty)
+            {
+                super.updateItem(t, empty);
+
+                if (empty || t == null)
+                {
+                    setText(null);
+                } else
+                {
+                    setText(t.toString());
+                }
+            }
+        });
+
+        updateTestListView();
+
+        testListView.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldVal, newVal) -> {
+                    testForDeletion = newVal;
+                    deleteQuestionButton.setDisable(false);
+                }
+        );
+    }
+
+    private void updateTestListView()
+    {
+        testListView.setItems(FXCollections.observableArrayList(testService.getTests()));
+    }
+
+    private void setupQuestionListView()
     {
         questionListView.setCellFactory(param -> new ListCell<>()
         {
@@ -192,11 +317,11 @@ public class MainController implements Initializable
             }
         });
 
-        updateListView();
+        updateQuestionListView();
 
         questionListView.getSelectionModel().selectedItemProperty().addListener(
                 (obs, oldVal, newVal) -> {
-                    forDeletion = newVal;
+                    questionForDeletion = newVal;
                     deleteQuestionButton.setDisable(false);
 
                     if (newVal != null && newVal.answers()!=null)
@@ -211,7 +336,7 @@ public class MainController implements Initializable
         );
     }
 
-    private void updateListView()
+    private void updateQuestionListView()
     {
         questionListView.setItems(FXCollections.observableArrayList(questionService.getQuestions()));
     }

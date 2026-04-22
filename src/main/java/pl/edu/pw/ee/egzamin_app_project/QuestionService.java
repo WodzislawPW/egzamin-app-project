@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -65,7 +64,7 @@ public class QuestionService
         }
     }
 
-    public void deleteCategory(Question removedQuestion)
+    public void deleteQuestion(Question removedQuestion)
     {
         try
         {

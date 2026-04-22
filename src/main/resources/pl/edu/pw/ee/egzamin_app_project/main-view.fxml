@@ -89,7 +89,7 @@
                      <children>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="searchTextField" onKeyTyped="#updateKeyword" promptText="Wyszukaj pytanie..." />
+                              <TextField fx:id="searchTextField" onKeyTyped="#updateQuestionListViewKeyword" promptText="Wyszukaj pytanie..." />
                               <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="200.0" />
                               <Button fx:id="deleteQuestionButton" mnemonicParsing="false" onAction="#deleteQuestion" text="Usuń" />
                            </children>
@@ -130,6 +130,61 @@
             </BorderPane>
          </content>
     </Tab>
-    <Tab text="Tests" />
+    <Tab text="Tests">
+         <content>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+                     <children>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="testSearchTextField" onKeyTyped="#updateTestListViewKeyword" promptText="Wyszukaj test..." />
+                              <ListView fx:id="testListView" maxWidth="1.7976931348623157E308" prefHeight="658.0" prefWidth="300.0" />
+                           </children>
+                        </VBox>
+                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="questionSearchTextField" promptText="Wyszukaj pytanie..." />
+                              <ListView fx:id="searchedQuestionListView" maxWidth="1.7976931348623157E308" prefHeight="322.0" prefWidth="300.0" />
+                              <ListView fx:id="testQuestionListView" prefHeight="322.0" prefWidth="184.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </center>
+               <left>
+                  <VBox prefHeight="200.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <VBox>
+                           <children>
+                              <Label text="Nazwa testu" />
+                              <TextField fx:id="testNameTextField" onKeyTyped="#updateTestStatusLabelBuffer" />
+                              <Label fx:id="testStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="269.0">
+                                 <padding>
+                                    <Insets bottom="10.0" top="10.0" />
+                                 </padding>
+                              </Label>
+                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
+                                 <children>
+                                    <Button fx:id="addTestButton" mnemonicParsing="false" onAction="#addNewTest" text="Dodaj" />
+                                    <Button fx:id="deleteTestButton" mnemonicParsing="false" onAction="#removeTest" text="Usuń" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </VBox>
+               </left>
+               <right>
+                  <VBox prefHeight="200.0" prefWidth="287.0" BorderPane.alignment="CENTER" />
+               </right>
+            </BorderPane>
+         </content></Tab>
   </tabs>
 </TabPane>
