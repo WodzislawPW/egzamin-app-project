@@ -1,10 +1,11 @@
 [ {
-  "name" : "Test1",
-  "questions" : [ ]
-}, {
-  "name" : "Test2",
-  "questions" : [ ]
-}, {
   "name" : "Java quiz",
   "questions" : [ ]
+}, {
+  "name" : "Test1",
+  "questions" : [ {
+    "questionText" : "Test1",
+    "category" : "Misc",
+    "answers" : null
+  } ]
 } ]

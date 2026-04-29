@@ -28,7 +28,7 @@ public class MainController implements Initializable
     private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField, searchTextField, testNameTextField, testSearchTextField, questionSearchTextField;
 
     @FXML
-    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton, addTestButton, deleteTestButton;
+    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton, addTestButton, deleteTestButton, deleteTestButton2, addQuestionToTestButton, removeQuestionFromTestButton;
 
     @FXML
     private ChoiceBox<String> questionAmountChoiceBox, categoryChoiceBox;
@@ -53,9 +53,11 @@ public class MainController implements Initializable
     private boolean categoryLabelEmpty = true;
     private boolean testExists = true;
     private boolean testLabelEmpty = true;
+    private boolean searchQuestion = true;
 
-    Question questionForDeletion;
-    Test testForDeletion;
+    Question questionForDeletion, currentQuestion;
+    Test testForDeletion, currentTest = new Test("temp");
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
@@ -79,6 +81,7 @@ public class MainController implements Initializable
         testService = new TestService();
 
         setupTestListView();
+        setupSearchedQuestionListView();
 
         updateTestButtons();
 
@@ -86,6 +89,9 @@ public class MainController implements Initializable
         timeline.playFromStart();
 
         deleteQuestionButton.setDisable(true);
+        deleteTestButton2.setDisable(true);
+        addQuestionToTestButton.setDisable(true);
+        removeQuestionFromTestButton.setDisable(true);
 
         //System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
     }
@@ -259,43 +265,40 @@ public class MainController implements Initializable
         testService.removeTest(removedTest);
 
         updateTestListView();
+        updateSearchedQuestionListView();
+        updateTestQuestionListView();
         updateTestStatusLabel();
     }
 
-
-
-    private void setupTestListView()
+    public void removeTest2(ActionEvent event)
     {
-        testListView.setCellFactory(param -> new ListCell<>()
-        {
-            @Override
-            protected void updateItem(Test t, boolean empty)
-            {
-                super.updateItem(t, empty);
+        testService.removeTest(testForDeletion);
 
-                if (empty || t == null)
-                {
-                    setText(null);
-                } else
-                {
-                    setText(t.toString());
-                }
-            }
-        });
-
+        currentTest = new Test("temp");
         updateTestListView();
+        updateTestStatusLabel();
 
-        testListView.getSelectionModel().selectedItemProperty().addListener(
-                (obs, oldVal, newVal) -> {
-                    testForDeletion = newVal;
-                    deleteQuestionButton.setDisable(false);
-                }
-        );
+        updateSearchedQuestionListView();
+        updateTestQuestionListView();
     }
 
-    private void updateTestListView()
+    public void addQuestionToTest(ActionEvent event)
     {
-        testListView.setItems(FXCollections.observableArrayList(testService.getTests()));
+        //System.out.println("test");
+        currentTest.addQuestion(currentQuestion);
+        testService.updateTest(currentTest);
+
+        updateTestQuestionListView();
+        updateSearchedQuestionListView();
+    }
+
+    public void removeQuestionFromTest(ActionEvent event)
+    {
+        currentTest.removeQuestion(currentQuestion);
+        testService.updateTest(currentTest);
+
+        updateTestQuestionListView();
+        updateSearchedQuestionListView();
     }
 
     private void setupQuestionListView()
@@ -340,6 +343,125 @@ public class MainController implements Initializable
     {
         questionListView.setItems(FXCollections.observableArrayList(questionService.getQuestions()));
     }
+
+    private void setupTestListView()
+    {
+        testListView.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(Test t, boolean empty)
+            {
+                super.updateItem(t, empty);
+
+                if (empty || t == null)
+                {
+                    setText(null);
+                } else
+                {
+                    setText(t.toString());
+                }
+            }
+        });
+
+        updateTestListView();
+
+        testListView.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldVal, newVal) -> {
+                    if(newVal!=null)
+                    {
+                        testForDeletion = newVal;
+                        deleteTestButton2.setDisable(false);
+                        currentTest = newVal;
+                        setupSearchedQuestionListView();
+                        setupTestQuestionListView();
+                    }
+                    else
+                        deleteTestButton2.setDisable(true);
+                }
+        );
+    }
+
+    private void updateTestListView()
+    {
+        testListView.setItems(FXCollections.observableArrayList(testService.getTests()));
+    }
+
+    private void setupSearchedQuestionListView()
+    {
+        searchedQuestionListView.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(Question q, boolean empty)
+            {
+                super.updateItem(q, empty);
+
+                if (empty || q == null)
+                {
+                    setText(null);
+                } else
+                {
+                    setText(q.toString());
+                }
+            }
+        });
+
+        updateSearchedQuestionListView();
+
+        searchedQuestionListView.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldVal, newVal) -> {
+                    currentQuestion = newVal;
+                    addQuestionToTestButton.setDisable(false);
+                    removeQuestionFromTestButton.setDisable(true);
+                }
+        );
+    }
+
+    private void updateSearchedQuestionListView()
+    {
+        List<Question> searchedQuestions = questionService.getQuestions2();
+        searchedQuestions.removeAll(currentTest.getQuestions());
+
+        searchedQuestionListView.setItems(FXCollections.observableArrayList(searchedQuestions));
+    }
+
+    private void setupTestQuestionListView()
+    {
+        testQuestionListView.setCellFactory(param -> new ListCell<>()
+        {
+            @Override
+            protected void updateItem(Question q, boolean empty)
+            {
+                super.updateItem(q, empty);
+
+                if (empty || q == null)
+                {
+                    setText(null);
+                } else
+                {
+                    setText(q.toString());
+                }
+            }
+        });
+
+        updateTestQuestionListView();
+
+        testQuestionListView.getSelectionModel().selectedItemProperty().addListener(
+                (obs, oldVal, newVal) -> {
+                    currentQuestion = newVal;
+                    addQuestionToTestButton.setDisable(true);
+                    removeQuestionFromTestButton.setDisable(false);
+                }
+        );
+    }
+
+    private void updateTestQuestionListView()
+    {
+        List<Question> testQuestions = currentTest.getQuestions();
+
+        testQuestionListView.setItems(FXCollections.observableArrayList(testQuestions));
+    }
+
+
 
 
     public void confirmQuestion(ActionEvent event)

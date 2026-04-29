@@ -90,11 +90,11 @@
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <TextField fx:id="searchTextField" onKeyTyped="#updateQuestionListViewKeyword" promptText="Wyszukaj pytanie..." />
-                              <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="423.0" prefWidth="200.0" />
+                              <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="200.0" />
                               <Button fx:id="deleteQuestionButton" mnemonicParsing="false" onAction="#deleteQuestion" text="Usuń" />
                            </children>
                         </VBox>
-                        <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="458.0" prefWidth="200.0" />
+                        <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="459.0" prefWidth="200.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -139,14 +139,21 @@
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <TextField fx:id="testSearchTextField" onKeyTyped="#updateTestListViewKeyword" promptText="Wyszukaj test..." />
-                              <ListView fx:id="testListView" maxWidth="1.7976931348623157E308" prefHeight="658.0" prefWidth="300.0" />
+                              <ListView fx:id="testListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="300.0" />
+                              <Button fx:id="deleteTestButton2" mnemonicParsing="false" onAction="#removeTest2" text="Usuń" />
                            </children>
                         </VBox>
                         <VBox spacing="10.0" HBox.hgrow="ALWAYS">
                            <children>
                               <TextField fx:id="questionSearchTextField" promptText="Wyszukaj pytanie..." />
-                              <ListView fx:id="searchedQuestionListView" maxWidth="1.7976931348623157E308" prefHeight="322.0" prefWidth="300.0" />
-                              <ListView fx:id="testQuestionListView" prefHeight="322.0" prefWidth="184.0" />
+                              <ListView fx:id="searchedQuestionListView" maxWidth="1.7976931348623157E308" prefHeight="207.0" prefWidth="300.0" />
+                              <ListView fx:id="testQuestionListView" prefHeight="207.0" prefWidth="184.0" />
+                              <HBox spacing="10.0">
+                                 <children>
+                                    <Button fx:id="addQuestionToTestButton" mnemonicParsing="false" onAction="#addQuestionToTest" text="Dodaj" />
+                                    <Button fx:id="removeQuestionFromTestButton" mnemonicParsing="false" onAction="#removeQuestionFromTest" text="Usuń" />
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                      </children>

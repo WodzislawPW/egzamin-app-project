@@ -46,6 +46,20 @@ public class Question
         return category + ": " + questionText;
     }
 
+    @Override
+    public boolean equals(Object o)
+    {
+        if(o==null)
+            return false;
+
+        Question temp = (Question)o;
+
+        if(this.toString().equals(temp.toString()))
+            return true;
+        else
+            return false;
+    }
+
     public String answers()
     {
         if(answers==null)

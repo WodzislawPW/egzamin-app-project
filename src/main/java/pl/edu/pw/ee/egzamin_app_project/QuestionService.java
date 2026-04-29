@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class QuestionService
+public class QuestionService implements Cloneable
 {
     private static final String FILE_PATH = "src/main/resources/pl/edu/pw/ee/egzamin_app_project/questions.json";
     private static final ObjectMapper mapper = new ObjectMapper();
@@ -48,6 +48,17 @@ public class QuestionService
     {
         questions.sort(Comparator.comparing( (Question q) -> !q.toString().toLowerCase().contains(keyword.toLowerCase()) ));
         return questions;
+    }
+
+    public List<Question> getQuestions2()
+    {
+        List<Question> sorted = new ArrayList<>(questions);
+
+        sorted.sort(Comparator.comparing(
+                (Question q) -> !q.toString().toLowerCase().contains(keyword.toLowerCase())
+        ));
+
+        return sorted;
     }
 
     public void saveQuestion(Question newQuestion)

@@ -87,4 +87,19 @@ public class TestService
             e.printStackTrace();
         }
     }
+
+    public void updateTest(Test updatedTest)
+    {
+        try
+        {
+            tests.remove(this.getTest(updatedTest.toString()));
+            tests.add(updatedTest);
+
+            mapper.writerWithDefaultPrettyPrinter().writeValue(file, tests);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
