@@ -47,6 +47,7 @@ public class MainController implements Initializable
     QuestionService questionService;
     CategoryService categoryService;
     TestService testService;
+    DocxParser docxParser;
 
     private List<String> categories;
     private boolean categoryExists = true;
@@ -93,6 +94,10 @@ public class MainController implements Initializable
         addQuestionToTestButton.setDisable(true);
         removeQuestionFromTestButton.setDisable(true);
 
+        docxParser = new DocxParser();
+
+        updateQuestionListViewKeyword();
+
         //System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
     }
 
@@ -101,9 +106,15 @@ public class MainController implements Initializable
         questionService.deleteQuestion(questionForDeletion);
         deleteQuestionButton.setDisable(true);
         updateQuestionListView();
+        updateSearchedQuestionListView();
     }
 
-    public void updateQuestionListViewKeyword(KeyEvent event)
+    public void updateQuestionListViewKeywordBuffer(KeyEvent event)
+    {
+        updateQuestionListViewKeyword();
+    }
+
+    private void updateQuestionListViewKeyword()
     {
         String text = searchTextField.getText();
         questionService.setKeyword(text);
@@ -254,6 +265,7 @@ public class MainController implements Initializable
 
         testService.saveTests(newTest);
 
+        testNameTextField.clear();
         updateTestListView();
         updateTestStatusLabel();
     }
@@ -326,6 +338,7 @@ public class MainController implements Initializable
                 (obs, oldVal, newVal) -> {
                     questionForDeletion = newVal;
                     deleteQuestionButton.setDisable(false);
+                    //System.out.println(newVal.docxString());
 
                     if (newVal != null && newVal.answers()!=null)
                     {
@@ -369,6 +382,9 @@ public class MainController implements Initializable
                 (obs, oldVal, newVal) -> {
                     if(newVal!=null)
                     {
+                        docxParser.setTest(newVal);
+                        docxParser.toDocx();
+
                         testForDeletion = newVal;
                         deleteTestButton2.setDisable(false);
                         currentTest = newVal;
@@ -513,9 +529,11 @@ public class MainController implements Initializable
         if(missingComponents.isEmpty())
         {
             Question question = new Question(questionAmount, presentComponents);
-            question.printString();
             questionService.saveQuestion(question);
             questionListView.setItems(FXCollections.observableArrayList(questionService.getQuestions()));
+            updateSearchedQuestionListView();
+            updateTestQuestionListView();
+            updateQuestionListViewKeyword();
         }
         else
         {

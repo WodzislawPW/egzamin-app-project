@@ -1,5 +1,6 @@
 package pl.edu.pw.ee.egzamin_app_project;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Question
@@ -26,19 +27,31 @@ public class Question
         }
     }
 
-    public void printString()
+    public String docxString()
     {
-        System.out.println(category);
-        System.out.println(questionText);
+        StringBuilder stringBuilder = new StringBuilder();
 
-        if(answers != null)
+        stringBuilder.append(questionText);
+        stringBuilder.append("\n");
+
+        int i=0;
+        String letters = "abcd";
+
+        if(answers!=null)
         {
-            System.out.println(answers);
+            for (Answer a : answers)
+            {
+                stringBuilder.append(letters.charAt(i));
+                stringBuilder.append(") ");
+                stringBuilder.append(a.toString());
+                stringBuilder.append("\n");
+                i++;
+            }
         }
-        else
-        {
-            System.out.println("kek");
-        }
+
+        stringBuilder.append("\n");
+
+        return stringBuilder.toString();
     }
 
     public String toString()
@@ -79,6 +92,29 @@ public class Question
         }
 
         return stringBuilder.toString();
+    }
+
+    public void randomizeAnswerOrder()
+    {
+        Collections.shuffle(answers);
+    }
+
+    public int getIndexOfCorrectAnswer()
+    {
+        int i=0;
+        for(Answer a : answers)
+        {
+            if(a.isCorrect())
+                return i;
+            i++;
+        }
+
+        return 0;
+    }
+
+    public boolean isOpen()
+    {
+        return answers == null;
     }
 
     public String getQuestionText()
