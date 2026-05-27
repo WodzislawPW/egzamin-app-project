@@ -8,6 +8,7 @@ public class Question
     private String questionText;
     private String category;
     private List<Answer> answers;
+    private boolean open;
 
     public Question(){}
 
@@ -25,6 +26,8 @@ public class Question
             while(!components.isEmpty())
                 answers.add(new Answer(components.removeFirst(), false));
         }
+
+        setOpen();
     }
 
     public String docxString()
@@ -99,7 +102,7 @@ public class Question
         Collections.shuffle(answers);
     }
 
-    public int getIndexOfCorrectAnswer()
+    public int giveIndexOfCorrectAnswer()
     {
         int i=0;
         for(Answer a : answers)
@@ -112,10 +115,17 @@ public class Question
         return 0;
     }
 
-    public boolean isOpen()
+    public void setOpen()
     {
-        return answers == null;
+        open = (answers == null);
     }
+
+    public boolean getOpen()
+    {
+        return open;
+    }
+
+
 
     public String getQuestionText()
     {

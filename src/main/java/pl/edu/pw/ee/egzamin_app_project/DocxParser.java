@@ -8,14 +8,29 @@ import java.util.List;
 public class DocxParser
 {
     Test test;
-    File file;
+    File directory;
+    int groupAmount = 1;
 
-    public void setTest(Test newTest)
+    public void setTest(Test test)
     {
-        test = newTest;
+        this.test = test;
     }
 
-    public void toDocx()
+    public void setDirectory(File directory) { this.directory = directory; }
+
+    public void setGroupAmount(int groupAmount) { this.groupAmount = groupAmount; }
+
+    public void exportTest()
+    {
+        String letters = "ABCDEFGHIJ";
+
+        for(int i=0; i<groupAmount; i++)
+        {
+            toDocx(letters.charAt(i));
+        }
+    }
+
+    public void toDocx(char group)
     {
         List<Question> questions = new ArrayList<>(test.getQuestions());
         String letters = "ABCD";
@@ -28,18 +43,26 @@ public class DocxParser
         int i = 1;
         for(Question q : questions)
         {
-            q.randomizeAnswerOrder();
+            //System.out.println(i);
+            //System.out.println(q.getOpen());
+
+            if(!q.getOpen())
+                q.randomizeAnswerOrder();
+
             testText.append(q.docxString());
 
-            if(!q.isOpen())
+            if(!q.getOpen())
             {
                 answerSheet.append(i);
-                answerSheet.append(letters.charAt(q.getIndexOfCorrectAnswer()));
+                answerSheet.append(letters.charAt(q.giveIndexOfCorrectAnswer()));
                 answerSheet.append("\n");
             }
             i++;
         }
 
+        File file = new File(directory.toString() + "\\" + test.toString() + group);
+
+        System.out.println(file.toString());
         System.out.println(testText.toString());
         System.out.println(answerSheet.toString());
     }

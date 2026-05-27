@@ -1,24 +1,8 @@
 [ {
-  "questionText" : "Dlaczego java boli??",
-  "category" : "Java",
-  "answers" : [ {
-    "text" : "1",
-    "correct" : true
-  }, {
-    "text" : "2",
-    "correct" : false
-  }, {
-    "text" : "3",
-    "correct" : false
-  }, {
-    "text" : "4",
-    "correct" : false
-  } ]
-}, {
   "questionText" : "Question1",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -29,12 +13,13 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
   "questionText" : "Question2",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -45,12 +30,13 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
   "questionText" : "Question3",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -61,12 +47,13 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
   "questionText" : "Question4",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -77,12 +64,13 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
   "questionText" : "Question5",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -93,12 +81,13 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
   "questionText" : "Question6",
   "category" : "Java",
   "answers" : [ {
-    "text" : "Corr",
+    "text" : "corr",
     "correct" : true
   }, {
     "text" : "i1",
@@ -109,33 +98,16 @@
   }, {
     "text" : "i3",
     "correct" : false
-  } ]
+  } ],
+  "open" : false
 }, {
-  "questionText" : "Test2",
+  "questionText" : "Temp1",
   "category" : "Misc",
-  "answers" : null
+  "answers" : null,
+  "open" : true
 }, {
-  "questionText" : "Test3",
+  "questionText" : "Temp2",
   "category" : "Misc",
-  "answers" : null
-}, {
-  "questionText" : "NewfuncTest1",
-  "category" : "C++",
-  "answers" : [ {
-    "text" : "corr1",
-    "correct" : true
-  }, {
-    "text" : "in1",
-    "correct" : false
-  }, {
-    "text" : "in2",
-    "correct" : false
-  }, {
-    "text" : "in3",
-    "correct" : false
-  } ]
-}, {
-  "questionText" : "OrderTest1",
-  "category" : "Java",
-  "answers" : null
+  "answers" : null,
+  "open" : true
 } ]

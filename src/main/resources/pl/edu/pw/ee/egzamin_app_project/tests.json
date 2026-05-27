@@ -1,96 +1,69 @@
 [ {
-  "name" : "Java quiz",
+  "name" : "Testowy_test",
   "questions" : [ ]
 }, {
-  "name" : "Test1",
-  "questions" : [ ]
-}, {
-  "name" : "DocxTest1",
+  "name" : "Temp test",
   "questions" : [ {
     "questionText" : "Question1",
     "category" : "Java",
     "answers" : [ {
-      "text" : "Corr",
-      "correct" : true
-    }, {
       "text" : "i1",
       "correct" : false
+    }, {
+      "text" : "corr",
+      "correct" : true
     }, {
       "text" : "i2",
       "correct" : false
     }, {
       "text" : "i3",
       "correct" : false
-    } ]
-  }, {
-    "questionText" : "Question2",
-    "category" : "Java",
-    "answers" : [ {
-      "text" : "Corr",
-      "correct" : true
-    }, {
-      "text" : "i1",
-      "correct" : false
-    }, {
-      "text" : "i2",
-      "correct" : false
-    }, {
-      "text" : "i3",
-      "correct" : false
-    } ]
-  }, {
-    "questionText" : "Question3",
-    "category" : "Java",
-    "answers" : [ {
-      "text" : "Corr",
-      "correct" : true
-    }, {
-      "text" : "i1",
-      "correct" : false
-    }, {
-      "text" : "i2",
-      "correct" : false
-    }, {
-      "text" : "i3",
-      "correct" : false
-    } ]
-  }, {
-    "questionText" : "Question4",
-    "category" : "Java",
-    "answers" : [ {
-      "text" : "Corr",
-      "correct" : true
-    }, {
-      "text" : "i1",
-      "correct" : false
-    }, {
-      "text" : "i2",
-      "correct" : false
-    }, {
-      "text" : "i3",
-      "correct" : false
-    } ]
+    } ],
+    "open" : false
   }, {
     "questionText" : "Question5",
     "category" : "Java",
     "answers" : [ {
-      "text" : "Corr",
-      "correct" : true
-    }, {
-      "text" : "i1",
-      "correct" : false
-    }, {
       "text" : "i2",
       "correct" : false
     }, {
       "text" : "i3",
       "correct" : false
-    } ]
+    }, {
+      "text" : "i1",
+      "correct" : false
+    }, {
+      "text" : "corr",
+      "correct" : true
+    } ],
+    "open" : false
   }, {
     "questionText" : "Question6",
     "category" : "Java",
     "answers" : [ {
-      "text" : "Corr",
+      "text" : "i1",
+      "correct" : false
+    }, {
+      "text" : "i3",
+      "correct" : false
+    }, {
+      "text" : "corr",
+      "correct" : true
+    }, {
+      "text" : "i2",
+      "correct" : false
+    } ],
+    "open" : false
+  }, {
+    "questionText" : "Temp1",
+    "category" : "Misc",
+    "answers" : null,
+    "open" : true
+  }, {
+    "questionText" : "Question4",
+    "category" : "Java",
+    "answers" : [ {
+      "text" : "corr",
       "correct" : true
     }, {
       "text" : "i1",
@@ -101,6 +74,7 @@
     }, {
       "text" : "i3",
       "correct" : false
-    } ]
+    } ],
+    "open" : false
   } ]
 } ]

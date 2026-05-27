@@ -42,7 +42,7 @@ public class QuestionService implements Cloneable
     public void setKeyword(String keyword)
     {
         if(keyword.isEmpty())
-            this.keyword = "a";
+            this.keyword = "1a";
         else
             this.keyword = keyword;
     }

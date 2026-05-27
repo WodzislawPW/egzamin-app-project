@@ -7,19 +7,24 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable
 {
     @FXML
-    private Label correctAnswerLabel, incorrectAnswerLabel1, incorrectAnswerLabel2, incorrectAnswerLabel3, missingElementsLabel, categoryStatusLabel, testStatusLabel;
+    private Label correctAnswerLabel, incorrectAnswerLabel1, incorrectAnswerLabel2, incorrectAnswerLabel3, missingElementsLabel, categoryStatusLabel, testStatusLabel, directoryLabel;
 
     @FXML
     private TextArea questionTextArea, answersTextArea;
@@ -28,10 +33,13 @@ public class MainController implements Initializable
     private TextField correctAnswerTextField, incorrectAnswerTextField1, incorrectAnswerTextField2,incorrectAnswerTextField3, categoryTextField, searchTextField, testNameTextField, testSearchTextField, questionSearchTextField;
 
     @FXML
-    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton, addTestButton, deleteTestButton, deleteTestButton2, addQuestionToTestButton, removeQuestionFromTestButton;
+    private Button confirmButton, clearButton, addCategoryButton, deleteCategoryButton, deleteQuestionButton, addTestButton, deleteTestButton, deleteTestButton2, addQuestionToTestButton, removeQuestionFromTestButton, inputDirectoryButton, exportButton;
 
     @FXML
     private ChoiceBox<String> questionAmountChoiceBox, categoryChoiceBox;
+
+    @FXML
+    private ChoiceBox<Integer> groupAmountChoiceBox;
 
     @FXML
     private ListView<Question> questionListView, testQuestionListView, searchedQuestionListView;
@@ -40,6 +48,7 @@ public class MainController implements Initializable
     private ListView<Test> testListView;
 
     private String[] incorrectAnswerAmount = {"Otwarte", "1", "2", "3"};
+    private Integer[] groupAmount = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     private String questionType = incorrectAnswerAmount[3];
     private int questionAmount = 3;
     Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.01), e -> fadeOutMissingLabel()));
@@ -55,6 +64,8 @@ public class MainController implements Initializable
     private boolean testExists = true;
     private boolean testLabelEmpty = true;
     private boolean searchQuestion = true;
+    private boolean exportCondition1 = false;
+    private boolean exportCondition2 = false;
 
     Question questionForDeletion, currentQuestion;
     Test testForDeletion, currentTest = new Test("temp");
@@ -66,6 +77,11 @@ public class MainController implements Initializable
         questionAmountChoiceBox.getItems().addAll(incorrectAnswerAmount);
         questionAmountChoiceBox.getSelectionModel().select(3);
         questionAmountChoiceBox.setOnAction(this::switchAnswerAmount);
+
+        groupAmountChoiceBox.getItems().addAll(groupAmount);
+        groupAmountChoiceBox.getSelectionModel().select(0);
+        groupAmountChoiceBox.setOnAction(this::updateGroupAmount);
+
 
         categoryService = new CategoryService();
 
@@ -97,6 +113,7 @@ public class MainController implements Initializable
         docxParser = new DocxParser();
 
         updateQuestionListViewKeyword();
+        updateExportButton();
 
         //System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
     }
@@ -280,6 +297,9 @@ public class MainController implements Initializable
         updateSearchedQuestionListView();
         updateTestQuestionListView();
         updateTestStatusLabel();
+
+        exportCondition1=false;
+        updateExportButton();
     }
 
     public void removeTest2(ActionEvent event)
@@ -382,8 +402,10 @@ public class MainController implements Initializable
                 (obs, oldVal, newVal) -> {
                     if(newVal!=null)
                     {
+                        exportCondition1=true;
+                        updateExportButton();
                         docxParser.setTest(newVal);
-                        docxParser.toDocx();
+                        //docxParser.toDocx();
 
                         testForDeletion = newVal;
                         deleteTestButton2.setDisable(false);
@@ -392,7 +414,11 @@ public class MainController implements Initializable
                         setupTestQuestionListView();
                     }
                     else
+                    {
+                        exportCondition1=false;
+                        updateExportButton();
                         deleteTestButton2.setDisable(true);
+                    }
                 }
         );
     }
@@ -437,6 +463,9 @@ public class MainController implements Initializable
         List<Question> searchedQuestions = questionService.getQuestions2();
         searchedQuestions.removeAll(currentTest.getQuestions());
 
+        String text = questionSearchTextField.getText();
+        searchedQuestions.sort(Comparator.comparing( (Question q) -> !q.toString().toLowerCase().contains(text.toLowerCase()) ));
+
         searchedQuestionListView.setItems(FXCollections.observableArrayList(searchedQuestions));
     }
 
@@ -474,11 +503,54 @@ public class MainController implements Initializable
     {
         List<Question> testQuestions = currentTest.getQuestions();
 
+        String text = questionSearchTextField.getText();
+        testQuestions.sort(Comparator.comparing( (Question q) -> !q.toString().toLowerCase().contains(text.toLowerCase()) ));
+
         testQuestionListView.setItems(FXCollections.observableArrayList(testQuestions));
     }
 
+    public void updateSearchedQuestionListViewKeyword(KeyEvent event)
+    {
+        updateSearchedQuestionListView();
+        updateTestQuestionListView();
+    }
 
+    public void askDirectory(ActionEvent event)
+    {
+        Node source = (Node) event.getSource();
+        Window window = source.getScene().getWindow();
 
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Podaj ścieżkę");
+        directoryChooser.setInitialDirectory(new File("c:\\"));
+        File directory = directoryChooser.showDialog(window);
+
+        if(directory != null)
+        {
+            exportCondition2 = true;
+            updateExportButton();
+            directoryLabel.setText("Ścieżka: " + directory.toString());
+            docxParser.setDirectory(directory);
+        }
+    }
+
+    public void updateGroupAmount(ActionEvent event)
+    {
+        docxParser.setGroupAmount(groupAmountChoiceBox.getSelectionModel().getSelectedItem());
+    }
+
+    private void updateExportButton()
+    {
+        if(exportCondition1 && exportCondition2)
+            exportButton.setDisable(false);
+        else
+            exportButton.setDisable(true);
+    }
+
+    public void exportTest(ActionEvent event)
+    {
+        docxParser.exportTest();
+    }
 
     public void confirmQuestion(ActionEvent event)
     {
