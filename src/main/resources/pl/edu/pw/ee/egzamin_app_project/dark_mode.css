@@ -1,0 +1,39 @@
+.root {
+    -fx-accent: "000000";
+    -fx-focus-color: -fx-accent;
+    -fx-base: "1f1f1f";
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+}
+
+.tab-pane
+{
+    -fx-open-tab-animation: "grow";
+    -fx-close-tab-animation: "grow";
+}
+
+.tab
+{
+    -fx-accent: "000000";
+    -fx-focus-color: -fx-accent;
+    -fx-base: "1f1f1f";
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
+    -fx-text-base-color: "white";
+}
+
+.tab-header-background
+{
+    -fx-background-color: "444444";
+    -fx-border-color: "black";
+}
+
+.label
+{
+    -fx-text-fill: "white";
+}
+
+.text-field
+{
+    -fx-prompt-text-fill: "lightgray";
+}

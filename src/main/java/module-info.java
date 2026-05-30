@@ -8,6 +8,7 @@ module pl.edu.pw.ee.egzamin_app_project {
     requires java.sql;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    requires org.apache.poi.ooxml;
 
     opens pl.edu.pw.ee.egzamin_app_project to javafx.fxml, com.fasterxml.jackson.databind;
     exports pl.edu.pw.ee.egzamin_app_project;

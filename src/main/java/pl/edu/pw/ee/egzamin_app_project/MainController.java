@@ -3,6 +3,7 @@ package pl.edu.pw.ee.egzamin_app_project;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +48,12 @@ public class MainController implements Initializable
     @FXML
     private ListView<Test> testListView;
 
+    @FXML
+    private CheckBox randomQuestionOrderCheckBox;
+
+    @FXML
+    private RadioMenuItem setLightModeMenuItem, setDarkModeMenuItem;
+
     private String[] incorrectAnswerAmount = {"Otwarte", "1", "2", "3"};
     private Integer[] groupAmount = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     private String questionType = incorrectAnswerAmount[3];
@@ -70,6 +77,8 @@ public class MainController implements Initializable
     Question questionForDeletion, currentQuestion;
     Test testForDeletion, currentTest = new Test("temp");
 
+    private Application application;
+
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1)
@@ -81,7 +90,6 @@ public class MainController implements Initializable
         groupAmountChoiceBox.getItems().addAll(groupAmount);
         groupAmountChoiceBox.getSelectionModel().select(0);
         groupAmountChoiceBox.setOnAction(this::updateGroupAmount);
-
 
         categoryService = new CategoryService();
 
@@ -115,7 +123,27 @@ public class MainController implements Initializable
         updateQuestionListViewKeyword();
         updateExportButton();
 
-        //System.out.println(categoryChoiceBox.getSelectionModel().getSelectedItem());
+    }
+
+    public void setApplication(Application application)
+    {
+        this.application = application;
+    }
+
+    public void switchToLightMode(ActionEvent event)
+    {
+        categoryStatusLabel.getScene().getStylesheets().clear();
+    }
+
+    public void switchToDarkMode(ActionEvent event)
+    {
+        String css = application.getClass().getResource("dark_mode.css").toExternalForm();
+        categoryStatusLabel.getScene().getStylesheets().add(css);
+    }
+
+    public void switchRandomQuestionOrderCheckBox(ActionEvent event)
+    {
+        docxParser.setRandom(randomQuestionOrderCheckBox.isSelected());
     }
 
     public void deleteQuestion(ActionEvent event)

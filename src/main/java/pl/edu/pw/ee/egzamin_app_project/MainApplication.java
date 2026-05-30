@@ -21,6 +21,10 @@ public class MainApplication extends Application {
 
         stage.setTitle("Hello!");
 
+
+        MainController controller = fxmlLoader.getController();
+        controller.setApplication(this);
+
 //        Screen screen = Screen.getPrimary();
 //        double dpi = screen.getDpi();
 //        double scaleFactor = dpi / 96.0;

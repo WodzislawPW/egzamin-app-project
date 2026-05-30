@@ -2,223 +2,252 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="707.0" prefWidth="971.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.pw.ee.egzamin_app_project.MainController">
-  <tabs>
-    <Tab text="Questions">
-         <content>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <left>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
-                     <children>
-                        <VBox maxHeight="-Infinity" prefHeight="250.0" prefWidth="236.0">
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.edu.pw.ee.egzamin_app_project.MainController">
+   <center>
+      <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="707.0" prefWidth="971.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+          <Tab text="Questions">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <left>
+                        <VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="TOP_LEFT">
                            <children>
-                              <Label text="Treść pytania" />
-                              <TextArea fx:id="questionTextArea" maxHeight="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                              <VBox maxHeight="-Infinity" prefHeight="250.0" prefWidth="236.0">
+                                 <children>
+                                    <Label text="Treść pytania" />
+                                    <TextArea fx:id="questionTextArea" maxHeight="1.7976931348623157E308" prefHeight="300.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                                 <children>
+                                    <ChoiceBox fx:id="questionAmountChoiceBox" prefHeight="25.0" prefWidth="70.0" />
+                                    <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmQuestion" text="Potwierdź" />
+                                    <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
-                              </TextArea>
-                           </children>
-                        </VBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
-                           <children>
-                              <ChoiceBox fx:id="questionAmountChoiceBox" prefHeight="25.0" prefWidth="70.0" />
-                              <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmQuestion" text="Potwierdź" />
-                              <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearFields" text="Wyczyść">
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <ChoiceBox fx:id="categoryChoiceBox" prefHeight="25.0" prefWidth="281.0" />
-                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="correctAnswerLabel" text="Poprawna odpowiedź" />
-                              <TextField fx:id="correctAnswerTextField" />
-                           </children>
-                        </VBox>
-                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="incorrectAnswerLabel1" text="Błędna odpowiedź 1" />
-                              <TextField fx:id="incorrectAnswerTextField1" />
-                           </children>
-                        </VBox>
-                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="incorrectAnswerLabel2" text="Błędna odpowiedź 2" />
-                              <TextField fx:id="incorrectAnswerTextField2" />
-                           </children>
-                        </VBox>
-                        <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label fx:id="incorrectAnswerLabel3" text="Błędna odpowiedź 3" />
-                              <TextField fx:id="incorrectAnswerTextField3" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </left>
-               <bottom>
-                  <AnchorPane prefHeight="159.0" prefWidth="971.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <Label fx:id="missingElementsLabel" layoutX="7.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="33.0" prefWidth="786.0" textFill="#ff1515" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-                     </children>
-                  </AnchorPane>
-               </bottom>
-               <center>
-                  <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
-                     <children>
-                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="searchTextField" onKeyTyped="#updateQuestionListViewKeywordBuffer" promptText="Wyszukaj pytanie..." />
-                              <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="200.0" />
-                              <Button fx:id="deleteQuestionButton" mnemonicParsing="false" onAction="#deleteQuestion" text="Usuń" />
-                           </children>
-                        </VBox>
-                        <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="459.0" prefWidth="200.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </center>
-               <right>
-                  <VBox prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <VBox>
-                           <children>
-                              <Label text="Nazwa kategorii" />
-                              <TextField fx:id="categoryTextField" onKeyTyped="#updateCategoryStatusLabelBuffer" />
-                              <Label fx:id="categoryStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0">
-                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </padding>
-                              </Label>
-                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
-                                 <children>
-                                    <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#addNewCategory" text="Dodaj" />
-                                    <Button fx:id="deleteCategoryButton" mnemonicParsing="false" onAction="#removeCategory" text="Usuń" />
-                                 </children>
                               </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </right>
-            </BorderPane>
-         </content>
-    </Tab>
-    <Tab text="Tests">
-         <content>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
-                     <children>
-                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="testSearchTextField" onKeyTyped="#updateTestListViewKeyword" promptText="Wyszukaj test..." />
-                              <ListView fx:id="testListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="300.0" />
-                              <Button fx:id="deleteTestButton2" mnemonicParsing="false" onAction="#removeTest2" text="Usuń" />
-                           </children>
-                        </VBox>
-                        <VBox spacing="10.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <TextField fx:id="questionSearchTextField" onKeyTyped="#updateSearchedQuestionListViewKeyword" promptText="Wyszukaj pytanie..." />
-                              <ListView fx:id="searchedQuestionListView" maxWidth="1.7976931348623157E308" prefHeight="207.0" prefWidth="300.0" />
-                              <ListView fx:id="testQuestionListView" prefHeight="207.0" prefWidth="184.0" />
-                              <HBox spacing="10.0">
+                              <ChoiceBox fx:id="categoryChoiceBox" prefHeight="25.0" prefWidth="281.0" />
+                              <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Button fx:id="addQuestionToTestButton" mnemonicParsing="false" onAction="#addQuestionToTest" text="Dodaj" />
-                                    <Button fx:id="removeQuestionFromTestButton" mnemonicParsing="false" onAction="#removeQuestionFromTest" text="Usuń" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </center>
-               <left>
-                  <VBox prefHeight="200.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                     <children>
-                        <VBox>
-                           <children>
-                              <Label text="Nazwa testu" />
-                              <TextField fx:id="testNameTextField" onKeyTyped="#updateTestStatusLabelBuffer" />
-                              <Label fx:id="testStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="269.0">
-                                 <padding>
-                                    <Insets bottom="10.0" top="10.0" />
-                                 </padding>
-                              </Label>
-                              <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
-                                 <children>
-                                    <Button fx:id="addTestButton" mnemonicParsing="false" onAction="#addNewTest" text="Dodaj" />
-                                    <Button fx:id="deleteTestButton" mnemonicParsing="false" onAction="#removeTest" text="Usuń" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </VBox>
-               </left>
-               <right>
-                  <VBox prefHeight="200.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
-                     <children>
-                        <VBox prefHeight="55.0" prefWidth="267.0" spacing="5.0">
-                           <children>
-                              <Label fx:id="directoryLabel" text="Ścieżka: " />
-                              <Button fx:id="inputDirectoryButton" mnemonicParsing="false" onAction="#askDirectory" prefWidth="97.0" text="Podaj ścieżkę" />
-                           </children>
-                        </VBox>
-                        <HBox spacing="100.0">
-                           <children>
-                              <VBox prefHeight="200.0" prefWidth="154.0">
-                                 <children>
-                                    <Label text="Ilość grup" />
-                                    <ChoiceBox fx:id="groupAmountChoiceBox" prefHeight="25.0" prefWidth="100.0" />
+                                    <Label fx:id="correctAnswerLabel" text="Poprawna odpowiedź" />
+                                    <TextField fx:id="correctAnswerTextField" />
                                  </children>
                               </VBox>
-                              <VBox prefHeight="200.0" prefWidth="127.0">
+                              <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
                                  <children>
-                                    <Label />
-                                    <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportTest" text="Eksportuj" />
+                                    <Label fx:id="incorrectAnswerLabel1" text="Błędna odpowiedź 1" />
+                                    <TextField fx:id="incorrectAnswerTextField1" />
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="incorrectAnswerLabel2" text="Błędna odpowiedź 2" />
+                                    <TextField fx:id="incorrectAnswerTextField2" />
+                                 </children>
+                              </VBox>
+                              <VBox maxHeight="-Infinity" prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Label fx:id="incorrectAnswerLabel3" text="Błędna odpowiedź 3" />
+                                    <TextField fx:id="incorrectAnswerTextField3" />
                                  </children>
                               </VBox>
                            </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </left>
+                     <bottom>
+                        <AnchorPane prefHeight="159.0" prefWidth="971.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="missingElementsLabel" layoutX="7.0" layoutY="127.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="33.0" prefWidth="786.0" textFill="#ff1515" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                     </bottom>
+                     <center>
+                        <HBox maxWidth="1.7976931348623157E308" spacing="10.0">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="searchTextField" onKeyTyped="#updateQuestionListViewKeywordBuffer" promptText="Wyszukaj pytanie..." />
+                                    <ListView fx:id="questionListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="200.0" />
+                                    <Button fx:id="deleteQuestionButton" mnemonicParsing="false" onAction="#deleteQuestion" text="Usuń" />
+                                 </children>
+                              </VBox>
+                              <TextArea fx:id="answersTextArea" maxHeight="-Infinity" prefHeight="459.0" prefWidth="200.0" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
                         </HBox>
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding></VBox>
-               </right>
-            </BorderPane>
-         </content></Tab>
-  </tabs>
-</TabPane>
+                     </center>
+                     <right>
+                        <VBox prefHeight="425.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="Nazwa kategorii" />
+                                    <TextField fx:id="categoryTextField" onKeyTyped="#updateCategoryStatusLabelBuffer" />
+                                    <Label fx:id="categoryStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="281.0">
+                                       <padding>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="addCategoryButton" mnemonicParsing="false" onAction="#addNewCategory" text="Dodaj" />
+                                          <Button fx:id="deleteCategoryButton" mnemonicParsing="false" onAction="#removeCategory" text="Usuń" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </right>
+                  </BorderPane>
+               </content>
+          </Tab>
+          <Tab text="Tests">
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="10.0">
+                           <children>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="testSearchTextField" onKeyTyped="#updateTestListViewKeyword" promptText="Wyszukaj test..." />
+                                    <ListView fx:id="testListView" maxWidth="1.7976931348623157E308" prefHeight="424.0" prefWidth="300.0" />
+                                    <Button fx:id="deleteTestButton2" mnemonicParsing="false" onAction="#removeTest2" text="Usuń" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="questionSearchTextField" onKeyTyped="#updateSearchedQuestionListViewKeyword" promptText="Wyszukaj pytanie..." />
+                                    <ListView fx:id="searchedQuestionListView" maxWidth="1.7976931348623157E308" prefHeight="207.0" prefWidth="300.0" />
+                                    <ListView fx:id="testQuestionListView" prefHeight="207.0" prefWidth="184.0" />
+                                    <HBox spacing="10.0">
+                                       <children>
+                                          <Button fx:id="addQuestionToTestButton" mnemonicParsing="false" onAction="#addQuestionToTest" text="Dodaj" />
+                                          <Button fx:id="removeQuestionFromTestButton" mnemonicParsing="false" onAction="#removeQuestionFromTest" text="Usuń" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                     </center>
+                     <left>
+                        <VBox prefHeight="200.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <children>
+                              <VBox>
+                                 <children>
+                                    <Label text="Nazwa testu" />
+                                    <TextField fx:id="testNameTextField" onKeyTyped="#updateTestStatusLabelBuffer" />
+                                    <Label fx:id="testStatusLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="37.0" prefWidth="269.0">
+                                       <padding>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </padding>
+                                    </Label>
+                                    <HBox alignment="TOP_CENTER" prefHeight="25.0" prefWidth="267.0" spacing="20.0">
+                                       <children>
+                                          <Button fx:id="addTestButton" mnemonicParsing="false" onAction="#addNewTest" text="Dodaj" />
+                                          <Button fx:id="deleteTestButton" mnemonicParsing="false" onAction="#removeTest" text="Usuń" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
+                     </left>
+                     <right>
+                        <VBox prefHeight="200.0" prefWidth="287.0" spacing="10.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="55.0" prefWidth="267.0" spacing="5.0">
+                                 <children>
+                                    <Label fx:id="directoryLabel" text="Ścieżka: " />
+                                    <Button fx:id="inputDirectoryButton" mnemonicParsing="false" onAction="#askDirectory" prefWidth="97.0" text="Podaj ścieżkę" />
+                                 </children>
+                              </VBox>
+                              <HBox prefHeight="63.0" prefWidth="267.0" spacing="100.0">
+                                 <children>
+                                    <VBox prefHeight="200.0" prefWidth="154.0">
+                                       <children>
+                                          <Label text="Ilość grup" />
+                                          <ChoiceBox fx:id="groupAmountChoiceBox" prefHeight="25.0" prefWidth="100.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox prefHeight="200.0" prefWidth="127.0">
+                                       <children>
+                                          <Label />
+                                          <Button fx:id="exportButton" mnemonicParsing="false" onAction="#exportTest" text="Eksportuj" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <CheckBox fx:id="randomQuestionOrderCheckBox" mnemonicParsing="false" onAction="#switchRandomQuestionOrderCheckBox" selected="true" text="Losowa kolejność" />
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </right>
+                  </BorderPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="Widok">
+            <items>
+                  <RadioMenuItem fx:id="setLightModeMenuItem" mnemonicParsing="false" onAction="#switchToLightMode" selected="true" text="Tryb jasny">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="visual_mode" />
+                     </toggleGroup>
+                  </RadioMenuItem>
+                  <RadioMenuItem fx:id="setDarkModeMenuItem" mnemonicParsing="false" onAction="#switchToDarkMode" text="Tryb ciemny" toggleGroup="$visual_mode" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

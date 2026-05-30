@@ -1,4 +1,6 @@
 package pl.edu.pw.ee.egzamin_app_project;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,12 +32,12 @@ public class Question
         setOpen();
     }
 
-    public String docxString()
+    public void docxString(XWPFRun tasksRun)
     {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder;
 
-        stringBuilder.append(questionText);
-        stringBuilder.append("\n");
+        tasksRun.setText(questionText);
+        tasksRun.addBreak();
 
         int i=0;
         String letters = "abcd";
@@ -44,17 +46,20 @@ public class Question
         {
             for (Answer a : answers)
             {
+                stringBuilder = new StringBuilder();
+
                 stringBuilder.append(letters.charAt(i));
                 stringBuilder.append(") ");
                 stringBuilder.append(a.toString());
-                stringBuilder.append("\n");
+
+                tasksRun.setText(stringBuilder.toString());
+                tasksRun.addBreak();
+
                 i++;
             }
         }
 
-        stringBuilder.append("\n");
-
-        return stringBuilder.toString();
+        tasksRun.addBreak();
     }
 
     public String toString()
