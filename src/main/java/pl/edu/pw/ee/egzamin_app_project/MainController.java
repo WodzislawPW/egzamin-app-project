@@ -4,6 +4,7 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 
@@ -64,6 +66,7 @@ public class MainController implements Initializable
     CategoryService categoryService;
     TestService testService;
     DocxParser docxParser;
+    Config config;
 
     private List<String> categories;
     private boolean categoryExists = true;
@@ -123,6 +126,28 @@ public class MainController implements Initializable
         updateQuestionListViewKeyword();
         updateExportButton();
 
+        config = new Config(true);
+
+        //config.showConfig();
+
+        Platform.runLater(() -> {
+            Stage stage = (Stage) deleteQuestionButton.getScene().getWindow();
+
+            stage.setOnCloseRequest(event -> {
+                config.saveConfig();
+            });
+
+            if(config.isDarkMode())
+                switchToDarkMode();
+            else
+                switchToLightMode();
+
+            if(config.isRandomQuestionOrder())
+                switchRandomQuestionOrderCheckBoxToTrue();
+            else
+                switchRandomQuestionOrderCheckBoxToFalse();
+        });
+
     }
 
     public void setApplication(Application application)
@@ -132,18 +157,55 @@ public class MainController implements Initializable
 
     public void switchToLightMode(ActionEvent event)
     {
+        switchToLightMode();
+    }
+
+    private void switchToLightMode()
+    {
         categoryStatusLabel.getScene().getStylesheets().clear();
+        config.setDarkMode(false);
+        //config.showConfig();
     }
 
     public void switchToDarkMode(ActionEvent event)
     {
+        switchToDarkMode();
+    }
+
+    private void switchToDarkMode()
+    {
         String css = application.getClass().getResource("dark_mode.css").toExternalForm();
         categoryStatusLabel.getScene().getStylesheets().add(css);
+        config.setDarkMode(true);
+        setDarkModeMenuItem.setSelected(true);
+        //config.showConfig();
     }
 
     public void switchRandomQuestionOrderCheckBox(ActionEvent event)
     {
-        docxParser.setRandom(randomQuestionOrderCheckBox.isSelected());
+        //docxParser.setRandom(randomQuestionOrderCheckBox.isSelected());
+        //config.setRandomQuestionOrder(randomQuestionOrderCheckBox.isSelected());
+
+        if(randomQuestionOrderCheckBox.isSelected())
+            switchRandomQuestionOrderCheckBoxToTrue();
+        else
+            switchRandomQuestionOrderCheckBoxToFalse();
+
+        //config.showConfig();
+    }
+
+    private void switchRandomQuestionOrderCheckBoxToTrue()
+    {
+        randomQuestionOrderCheckBox.setSelected(true);
+        config.setRandomQuestionOrder(true);
+        docxParser.setRandom(true);
+    }
+
+    private void switchRandomQuestionOrderCheckBoxToFalse()
+    {
+        randomQuestionOrderCheckBox.setSelected(false);
+        config.setRandomQuestionOrder(false);
+        docxParser.setRandom(false);
     }
 
     public void deleteQuestion(ActionEvent event)
