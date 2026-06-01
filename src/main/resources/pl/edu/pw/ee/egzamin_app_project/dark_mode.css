@@ -37,3 +37,8 @@
 {
     -fx-prompt-text-fill: "lightgray";
 }
+
+#missingElementsLabel
+{
+    -fx-text-fill: "ff4444";
+}

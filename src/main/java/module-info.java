@@ -9,7 +9,10 @@ module pl.edu.pw.ee.egzamin_app_project {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
     requires org.apache.poi.ooxml;
+    requires org.docx4j.core;
+    requires jakarta.xml.bind;
 
-    opens pl.edu.pw.ee.egzamin_app_project to javafx.fxml, com.fasterxml.jackson.databind;
+
+    opens pl.edu.pw.ee.egzamin_app_project to javafx.fxml, com.fasterxml.jackson.databind, jakarta.xml.bind;
     exports pl.edu.pw.ee.egzamin_app_project;
 }

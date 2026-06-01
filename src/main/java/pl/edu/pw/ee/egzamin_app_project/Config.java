@@ -4,8 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Config
 {
@@ -15,6 +13,7 @@ public class Config
 
     private boolean darkMode;
     private boolean randomQuestionOrder;
+    private boolean exportForPrint;
 
     public Config(){}
 
@@ -30,11 +29,13 @@ public class Config
                 tempConfig = mapper.readValue(file, new TypeReference<Config>() {});
                 darkMode = tempConfig.isDarkMode();
                 randomQuestionOrder = tempConfig.isRandomQuestionOrder();
+                exportForPrint = tempConfig.isExportForPrint();
             }
             else
             {
                 darkMode = false;
                 randomQuestionOrder = true;
+                exportForPrint = true;
             }
         }
         catch (Exception e)
@@ -42,6 +43,7 @@ public class Config
             e.printStackTrace();
             darkMode = false;
             randomQuestionOrder = true;
+            exportForPrint = true;
             //return;
         }
     }
@@ -62,6 +64,7 @@ public class Config
     {
         System.out.println("Dark mode: " + darkMode);
         System.out.println("Random:    " + randomQuestionOrder);
+        System.out.println("Print:     " + exportForPrint);
     }
 
 
@@ -79,5 +82,13 @@ public class Config
 
     public void setRandomQuestionOrder(boolean randomQuestionOrder) {
         this.randomQuestionOrder = randomQuestionOrder;
+    }
+
+    public boolean isExportForPrint() {
+        return exportForPrint;
+    }
+
+    public void setExportForPrint(boolean exportForPrint) {
+        this.exportForPrint = exportForPrint;
     }
 }

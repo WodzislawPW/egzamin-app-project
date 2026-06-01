@@ -19,7 +19,7 @@ public class MainApplication extends Application {
         String css = this.getClass().getResource("style.css").toExternalForm();
         //scene.getStylesheets().add(css);
 
-        stage.setTitle("Hello!");
+        stage.setTitle("Test Assembler");
 
 
         MainController controller = fxmlLoader.getController();

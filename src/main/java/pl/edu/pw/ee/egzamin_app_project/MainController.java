@@ -51,7 +51,7 @@ public class MainController implements Initializable
     private ListView<Test> testListView;
 
     @FXML
-    private CheckBox randomQuestionOrderCheckBox;
+    private CheckBox randomQuestionOrderCheckBox, exportTypeCheckBox;
 
     @FXML
     private RadioMenuItem setLightModeMenuItem, setDarkModeMenuItem;
@@ -135,6 +135,7 @@ public class MainController implements Initializable
 
             stage.setOnCloseRequest(event -> {
                 config.saveConfig();
+                //config.showConfig();
             });
 
             if(config.isDarkMode())
@@ -146,6 +147,11 @@ public class MainController implements Initializable
                 switchRandomQuestionOrderCheckBoxToTrue();
             else
                 switchRandomQuestionOrderCheckBoxToFalse();
+
+            if(config.isExportForPrint())
+                switchExportTypeCheckBoxToTrue();
+            else
+                switchExportTypeCheckBoxToFalse();
         });
 
     }
@@ -207,6 +213,29 @@ public class MainController implements Initializable
         config.setRandomQuestionOrder(false);
         docxParser.setRandom(false);
     }
+
+    public void switchExportTypeCheckBox(ActionEvent event)
+    {
+        if(exportTypeCheckBox.isSelected())
+            switchExportTypeCheckBoxToTrue();
+        else
+            switchExportTypeCheckBoxToFalse();
+    }
+
+    private void switchExportTypeCheckBoxToTrue()
+    {
+        exportTypeCheckBox.setSelected(true);
+        config.setExportForPrint(true);
+        docxParser.setPrint(true);
+    }
+
+    private void switchExportTypeCheckBoxToFalse()
+    {
+        exportTypeCheckBox.setSelected(false);
+        config.setExportForPrint(false);
+        docxParser.setPrint(false);
+    }
+
 
     public void deleteQuestion(ActionEvent event)
     {
@@ -381,7 +410,34 @@ public class MainController implements Initializable
     {
         Test removedTest = testService.getTest(testNameTextField.getText());
 
+        if(!removedTest.getQuestions().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Usunięcie testu");
+            alert.setHeaderText("Czy na pewno chcesz usunąć ten test?");
+            alert.setContentText("Tej operacji nie można cofnąć.");
+
+            alert.showAndWait().ifPresent(response -> {
+                if(response == ButtonType.OK)
+                {
+                    testService.removeTest(removedTest);
+                    testNameTextField.clear();
+
+                    updateTestListView();
+                    updateSearchedQuestionListView();
+                    updateTestQuestionListView();
+                    updateTestStatusLabel();
+
+                    exportCondition1=false;
+                    updateExportButton();
+                }
+            });
+
+            return;
+        }
+
         testService.removeTest(removedTest);
+        testNameTextField.clear();
 
         updateTestListView();
         updateSearchedQuestionListView();
@@ -394,6 +450,33 @@ public class MainController implements Initializable
 
     public void removeTest2(ActionEvent event)
     {
+        if(!testForDeletion.getQuestions().isEmpty())
+        {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Usunięcie testu");
+            alert.setHeaderText("Czy na pewno chcesz usunąć ten test?");
+            alert.setContentText("Tej operacji nie można cofnąć.");
+
+            alert.showAndWait().ifPresent(response -> {
+                if(response == ButtonType.OK)
+                {
+                    testService.removeTest(testForDeletion);
+
+                    currentTest = new Test("temp");
+                    updateTestListView();
+                    updateTestStatusLabel();
+
+                    updateSearchedQuestionListView();
+                    updateTestQuestionListView();
+
+                    exportCondition1=false;
+                    updateExportButton();
+                }
+            });
+
+            return;
+        }
+
         testService.removeTest(testForDeletion);
 
         currentTest = new Test("temp");
@@ -402,6 +485,9 @@ public class MainController implements Initializable
 
         updateSearchedQuestionListView();
         updateTestQuestionListView();
+
+        exportCondition1=false;
+        updateExportButton();
     }
 
     public void addQuestionToTest(ActionEvent event)

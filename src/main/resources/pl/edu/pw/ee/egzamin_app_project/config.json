@@ -1,4 +1,5 @@
 {
   "darkMode" : true,
-  "randomQuestionOrder" : true
+  "randomQuestionOrder" : true,
+  "exportForPrint" : true
 }
