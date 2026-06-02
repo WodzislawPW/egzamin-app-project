@@ -323,6 +323,8 @@ public class MainController implements Initializable
         categoryService.saveCategory(newCategory);
         inputCategories();
 
+        categoryTextField.clear();
+
         updateCategoryStatusLabel();
     }
 
@@ -332,6 +334,8 @@ public class MainController implements Initializable
 
         categoryService.removeCategory(removedCategory);
         inputCategories();
+
+        categoryTextField.clear();
 
         updateCategoryStatusLabel();
     }

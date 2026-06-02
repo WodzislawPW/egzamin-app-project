@@ -45,10 +45,12 @@ public class DocxParser
         answers.setAlignment(ParagraphAlignment.LEFT);
         XWPFRun answersRun = answers.createRun();
 
-        if(!print)
-            groupAmount = 1;
+        int tempGroupAmount = groupAmount;
 
-        for(int i=0; i<groupAmount; i++)
+        if(!print)
+            tempGroupAmount = 1;
+
+        for(int i=0; i<tempGroupAmount; i++)
         {
             answersRun.setText("Grupa " + groupLetters.charAt(i));
             answersRun.addBreak();
@@ -81,6 +83,8 @@ public class DocxParser
         alert.setHeaderText(null);
         alert.setContentText("Eksport testu " + test.getName() + " się udał.");
         alert.showAndWait();
+
+        tempGroupAmount = groupAmount;
     }
 
     public void toDocx(char group, XWPFRun answersRun)
@@ -88,7 +92,7 @@ public class DocxParser
         List<Question> questions = new ArrayList<>(test.getQuestions());
         String answerLetters = "ABCD";
 
-        if(random)
+        if(random && print)
             Collections.shuffle(questions);
 
         String output;

@@ -1,113 +1,45 @@
 [ {
-  "questionText" : "Question1",
-  "category" : "Java",
+  "questionText" : "Do której warstwy modelu OSI należy router?",
+  "category" : "Sieci",
   "answers" : [ {
-    "text" : "corr",
+    "text" : "Warstwy 2 - łącza danych",
     "correct" : true
   }, {
-    "text" : "i1",
+    "text" : "Warstwy 1 - fizycznej",
     "correct" : false
   }, {
-    "text" : "i2",
+    "text" : "Warstwy 3 - sieciowej",
     "correct" : false
   }, {
-    "text" : "i3",
+    "text" : "Warstwy 7 - aplikacji",
     "correct" : false
   } ],
   "open" : false
 }, {
-  "questionText" : "Question2",
-  "category" : "Java",
+  "questionText" : "Adresy MAC mają zasięg lokalny - router nie przekazuje ramek na podstawie adresów MAC do innych sieci.",
+  "category" : "Sieci",
   "answers" : [ {
-    "text" : "corr",
+    "text" : "Prawda",
     "correct" : true
   }, {
-    "text" : "i1",
-    "correct" : false
-  }, {
-    "text" : "i2",
-    "correct" : false
-  }, {
-    "text" : "i3",
+    "text" : "Fałsz",
     "correct" : false
   } ],
   "open" : false
 }, {
-  "questionText" : "Question3",
-  "category" : "Java",
-  "answers" : [ {
-    "text" : "corr",
-    "correct" : true
-  }, {
-    "text" : "i1",
-    "correct" : false
-  }, {
-    "text" : "i2",
-    "correct" : false
-  }, {
-    "text" : "i3",
-    "correct" : false
-  } ],
-  "open" : false
-}, {
-  "questionText" : "Question4",
-  "category" : "Java",
-  "answers" : [ {
-    "text" : "corr",
-    "correct" : true
-  }, {
-    "text" : "i1",
-    "correct" : false
-  }, {
-    "text" : "i2",
-    "correct" : false
-  }, {
-    "text" : "i3",
-    "correct" : false
-  } ],
-  "open" : false
-}, {
-  "questionText" : "Question5",
-  "category" : "Java",
-  "answers" : [ {
-    "text" : "corr",
-    "correct" : true
-  }, {
-    "text" : "i1",
-    "correct" : false
-  }, {
-    "text" : "i2",
-    "correct" : false
-  }, {
-    "text" : "i3",
-    "correct" : false
-  } ],
-  "open" : false
-}, {
-  "questionText" : "Question6",
-  "category" : "Java",
-  "answers" : [ {
-    "text" : "corr",
-    "correct" : true
-  }, {
-    "text" : "i1",
-    "correct" : false
-  }, {
-    "text" : "i2",
-    "correct" : false
-  }, {
-    "text" : "i3",
-    "correct" : false
-  } ],
-  "open" : false
-}, {
-  "questionText" : "Temp1",
-  "category" : "Misc",
+  "questionText" : "Jakiego interfejsu używa urządzenie do komunikacji z sobą i jaki jest jego adres IPv4?",
+  "category" : "Sieci",
   "answers" : null,
   "open" : true
 }, {
-  "questionText" : "Temp2",
-  "category" : "Misc",
-  "answers" : null,
-  "open" : true
+  "questionText" : "Czy klasa może mieć dwie metody o tej samej nazwie?",
+  "category" : "Java",
+  "answers" : [ {
+    "text" : "Prawda",
+    "correct" : true
+  }, {
+    "text" : "Fałsz",
+    "correct" : false
+  } ],
+  "open" : false
 } ]
